@@ -91,3 +91,11 @@ print(TraceRecode)
 print(TimeList)
 print("Tlast : " + str(TimeList[-1]))
 print("Tdelay : " + str(Tdelay))
+## output result file
+with open("DPResult.txt", "w") as data :
+    data.write(str(Atimes) + "\n")
+    data.write(str(Btimes) + "\n")
+    data.write(str(TraceRecode) + "\n")
+    data.write(str(TimeList) + "\n")
+    data.write(str(TimeList[-1]) + "\n")
+    data.write(str(Tdelay) + "\n")

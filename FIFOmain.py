@@ -61,6 +61,14 @@ for c in range(len(TraceRecode)) :
         Tdelay = Tdelay + (TimeList[c] - Btimes[IndexJ])
         IndexJ = IndexJ + 1
 Tdelay = float(Tdelay / len(TraceRecode))
+## output result file
+with open("FIFOResult.txt", "w") as data :
+    data.write(str(Atimes) + "\n")
+    data.write(str(Btimes) + "\n")
+    data.write(str(TraceRecode) + "\n")
+    data.write(str(TimeList) + "\n")
+    data.write(str(TimeList[-1]) + "\n")
+    data.write(str(Tdelay) + "\n")
 print(TraceRecode)
 print(TimeList)
 print("Tlast : " + str(TimeList[-1]))
