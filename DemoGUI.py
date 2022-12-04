@@ -1,13 +1,16 @@
 import tkinter as tk
 import tkinter.font as font
+import time
+import threading
+import math
 SIZEX = 1200
 SIZEY = 600
 window = tk.Tk()
 class CanvasControl :
     def __init__(self):
-        self.canvas = tk.Canvas(window, width = SIZEX, height = SIZEY)
+        self.canvas = tk.Canvas(window, width = SIZEX, height = 300)
         self.canvas.pack()
-        ## create line of DP x1 = 10~500  y1 = 10~170  
+        ##  line setting : x1 = 10~500  y1 = 10~170  
         self.canvas.create_line(10, 10, 500, 10, width = 2)
         self.canvas.create_line(10, 90, 470, 90, width = 2)
         self.canvas.create_line(10, 170, 500, 170, width = 2)
@@ -15,15 +18,6 @@ class CanvasControl :
         self.canvas.create_line(500, 170, 580, 130, width = 2)
         self.canvas.create_line(580, 50, 1200, 50, width = 2)
         self.canvas.create_line(580, 130, 1200, 130, width = 2)
-        ## create line of FIFO x1 = 10~500  y1 = 310~470  
-        self.dash = 300
-        self.canvas.create_line(10, 10 + self.dash, 500, 10 + self.dash, width = 2)
-        self.canvas.create_line(10, 90 + self.dash, 470, 90 + self.dash, width = 2)
-        self.canvas.create_line(10, 170 + self.dash, 500, 170 + self.dash, width = 2)
-        self.canvas.create_line(500, 10 + self.dash, 580, 50 + self.dash, width = 2)
-        self.canvas.create_line(500, 170 + self.dash, 580, 130 + self.dash, width = 2)
-        self.canvas.create_line(580, 50 + self.dash, 1200, 50 + self.dash, width = 2)
-        self.canvas.create_line(580, 130 + self.dash, 1200, 130 + self.dash, width = 2)
         ## car setting
         self.CarSizeX = 70
         self.CarSizeY = 40
@@ -40,6 +34,19 @@ class CanvasControl :
             x1 = 20 + (self.Wequal + self.CarSizeX) * NowSize
             self.CarListB.append(self.canvas.create_rectangle(x1, 110, x1 + self.CarSizeX, 110 + self.CarSizeY, fill = 'yellow'))
 ##
+## time setting
+StartTime = time.time()
+sec = 0.0
+timer = tk.Label(window, text='0.0', font=('Arial', 18))
+timer.pack()
+def TimerCount():
+    global sec
+    sec = time.time() - StartTime
+    while sec < 5.0 :
+        sec = time.time() - StartTime
+        timer.config(text = str(format(sec, '.2f')))
+TimerThread = threading.Thread(target = TimerCount)
+TimerThread.start()
 canvas = CanvasControl()
 canvas.create_car(0)
 canvas.create_car(0)
