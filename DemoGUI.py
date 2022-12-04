@@ -6,6 +6,7 @@ import math
 SIZEX = 1200
 SIZEY = 600
 window = tk.Tk()
+BtnFont = font.Font(size=15)
 class CanvasControl :
     def __init__(self):
         self.canvas = tk.Canvas(window, width = SIZEX, height = 300)
@@ -34,7 +35,7 @@ class CanvasControl :
             x1 = 20 + (self.Wequal + self.CarSizeX) * NowSize
             self.CarListB.append(self.canvas.create_rectangle(x1, 110, x1 + self.CarSizeX, 110 + self.CarSizeY, fill = 'yellow'))
 ##
-## time setting
+# time setting
 StartTime = time.time()
 sec = 0.0
 timer = tk.Label(window, text='0.0', font=('Arial', 18))
@@ -45,8 +46,10 @@ def TimerCount():
     while sec < 5.0 :
         sec = time.time() - StartTime
         timer.config(text = str(format(sec, '.2f')))
-TimerThread = threading.Thread(target = TimerCount)
-TimerThread.start()
+        window.update()
+## button start
+BtnStart = tk.Button(window, text="Start", bg = "light blue", width = '3', height = '1', font = BtnFont, command= TimerCount)
+BtnStart.pack()
 canvas = CanvasControl()
 canvas.create_car(0)
 canvas.create_car(0)
