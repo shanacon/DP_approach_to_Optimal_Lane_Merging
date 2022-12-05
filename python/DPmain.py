@@ -91,11 +91,31 @@ print(TraceRecode)
 print(TimeList)
 print("Tlast : " + str(TimeList[-1]))
 print("Tdelay : " + str(Tdelay))
+OutputA = []
+Lastitem = -2
+for item in Atimes :
+    while item <= Lastitem :
+        item = item + 1
+    Lastitem = item
+    OutputA.append(item)
+OutputB = []
+Lastitem = -2
+for item in Btimes :
+    while item <= Lastitem :
+        item = item + 1
+    Lastitem = item
+    OutputB.append(item)
 ## output result file
 with open("DPResult.txt", "w") as data :
-    data.write(str(Atimes) + "\n")
-    data.write(str(Btimes) + "\n")
+    for item in OutputA :
+        data.write(str(item) + " ")
+    data.write("\n")
+    for item in OutputB :
+        data.write(str(item) + " ")
+    data.write("\n")
     data.write(str(TraceRecode) + "\n")
-    data.write(str(TimeList) + "\n")
+    for item in TimeList :
+        data.write(str(item) + " ")
+    data.write("\n")
     data.write(str(TimeList[-1]) + "\n")
     data.write(str(Tdelay) + "\n")
