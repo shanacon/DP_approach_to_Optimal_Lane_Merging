@@ -43,52 +43,53 @@ int main()
     int LastCar = -1;  // 0 mean from a, 1 mean from b
     double TimeIndex = -3.0;
     string TraceRecode = "";
-    vector<double> TimeList;
+    vector<double> TimeListA;
+    vector<double> TimeListB;
     // FIFO
     while (IndexI < alpha + 1 && IndexJ < beta + 1)
     {
         if (Atimes[IndexI] <= Btimes[IndexJ])
         {
-            TraceRecode = TraceRecode + "A";
+            TraceRecode = TraceRecode + "0";
             if (LastCar == 0)
                 TimeIndex = max(Atimes[IndexI], TimeIndex + WEQUAL);
             else if (LastCar == 1)
                 TimeIndex = max(Atimes[IndexI], TimeIndex + WDIFF);
-            TimeList.push_back(TimeIndex);
+            TimeListA.push_back(TimeIndex);
             LastCar = 0;
             IndexI = IndexI + 1;
         }
         else
         {
-            TraceRecode = TraceRecode + "B";
+            TraceRecode = TraceRecode + "1";
             if (LastCar == 1)
                 TimeIndex = max(Btimes[IndexI], TimeIndex + WEQUAL);
             else
                 TimeIndex = max(Btimes[IndexI], TimeIndex + WDIFF);
-            TimeList.push_back(TimeIndex);
+            TimeListB.push_back(TimeIndex);
             LastCar = 1;
             IndexJ = IndexJ + 1;
         }
     }
     while (IndexI < alpha + 1)
     {
-        TraceRecode = TraceRecode + "A";
+        TraceRecode = TraceRecode + "0";
         if (LastCar == 0)
             TimeIndex = max(Atimes[IndexI], TimeIndex + WEQUAL);
         else
             TimeIndex = max(Atimes[IndexI], TimeIndex + WDIFF);
-        TimeList.push_back(TimeIndex);
+        TimeListA.push_back(TimeIndex);
         LastCar = 0;
         IndexI = IndexI + 1;
     }
     while (IndexJ < beta + 1)
     {
-        TraceRecode = TraceRecode + "B";
+        TraceRecode = TraceRecode + "1";
         if (LastCar == 1)
             TimeIndex = max(Btimes[IndexI], TimeIndex + WEQUAL);
         else
             TimeIndex = max(Btimes[IndexI], TimeIndex + WDIFF);
-        TimeList.push_back(TimeIndex);
+        TimeListB.push_back(TimeIndex);
         LastCar = 1;
         IndexJ = IndexJ + 1;
     }
@@ -98,14 +99,14 @@ int main()
     double Tdelay = 0.0;
     for (int c = 0;c < TraceRecode.size();c++)
     {
-        if (TraceRecode[c] == 'A')
+        if (TraceRecode[c] == '0')
         {
-            Tdelay = Tdelay + (TimeList[c] - Atimes[IndexI]);
+            Tdelay = Tdelay + (TimeListA[IndexI - 1] - Atimes[IndexI]);
             IndexI = IndexI + 1;
         }
-        else if (TraceRecode[c] == 'B')
+        else if (TraceRecode[c] == '1')
         {
-            Tdelay = Tdelay + (TimeList[c] - Btimes[IndexJ]);
+            Tdelay = Tdelay + (TimeListB[IndexJ - 1] - Btimes[IndexJ]);
             IndexJ = IndexJ + 1;
         }
     }
@@ -139,10 +140,13 @@ int main()
         ResultData << item << " ";
     ResultData << endl;
     ResultData << TraceRecode << endl;
-    for (double item : TimeList)
+    for (double item : TimeListA)
         ResultData << item << " ";
     ResultData << endl;
-    ResultData << TimeList.back() << endl;
+    for (double item : TimeListB)
+        ResultData << item << " ";
+    ResultData << endl;
+    ResultData << max(TimeListA.back(), TimeListB.back()) << endl;
     ResultData << Tdelay << endl;
     ResultData.close();
 }

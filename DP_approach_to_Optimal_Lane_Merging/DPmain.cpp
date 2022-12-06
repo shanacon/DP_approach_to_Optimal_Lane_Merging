@@ -87,7 +87,8 @@ int main()
     int IndexI = alpha;
     int IndexJ = beta;
     string TraceRecode = "";
-    vector<double> TimeList;
+    vector<double> TimeListA;
+    vector<double> TimeListB;
     if (LA[alpha][beta] <= LB[alpha][beta])
         AorB = 0;
     else
@@ -96,34 +97,35 @@ int main()
     {
         if (AorB == 0)
         {
-            TraceRecode = "A" + TraceRecode;
+            TraceRecode = "0" + TraceRecode;
             AorB = RA[IndexI][IndexJ];
-            TimeList.push_back(LA[IndexI][IndexJ]);
+            TimeListA.push_back(LA[IndexI][IndexJ]);
             IndexI = IndexI - 1;
         }
         else if(AorB == 1)
         {
-            TraceRecode = "B" + TraceRecode;
+            TraceRecode = "1" + TraceRecode;
             AorB = RB[IndexI][IndexJ];
-            TimeList.push_back(LB[IndexI][IndexJ]);
+            TimeListB.push_back(LB[IndexI][IndexJ]);
             IndexJ = IndexJ - 1;
         }
     }
-    reverse(TimeList.begin(), TimeList.end());
+    reverse(TimeListA.begin(), TimeListA.end());
+    reverse(TimeListB.begin(), TimeListB.end());
     // calculate Tdelay
     IndexI = 1;
     IndexJ = 1;
     double Tdelay = 0.0;
     for (int c = 0;c < TraceRecode.size();c++)
     {
-        if (TraceRecode[c] == 'A')
+        if (TraceRecode[c] == '0')
         {
-            Tdelay = Tdelay + (TimeList[c] - Atimes[IndexI]);
+            Tdelay = Tdelay + (TimeListA[IndexI - 1] - Atimes[IndexI]);
             IndexI = IndexI + 1;
         }
-        else if (TraceRecode[c] == 'B')
+        else if (TraceRecode[c] == '1')
         {
-            Tdelay = Tdelay + (TimeList[c] - Btimes[IndexJ]);
+            Tdelay = Tdelay + (TimeListB[IndexJ - 1] - Btimes[IndexJ]);
             IndexJ = IndexJ + 1;
         }
     }
@@ -163,10 +165,13 @@ int main()
         ResultData << item << " ";
     ResultData << endl;
     ResultData << TraceRecode << endl;
-    for (double item : TimeList)
+    for (double item : TimeListA)
         ResultData << item << " ";
     ResultData << endl;
-    ResultData << TimeList.back() << endl;
+    for (double item : TimeListB)
+        ResultData << item << " ";
+    ResultData << endl;
+    ResultData << max(TimeListA.back(), TimeListB.back()) << endl;
     ResultData << Tdelay << endl;
     ResultData.close();
 }
