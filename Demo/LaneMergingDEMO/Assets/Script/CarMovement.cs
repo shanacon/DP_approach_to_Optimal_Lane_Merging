@@ -13,9 +13,11 @@ public class CarMovement : MonoBehaviour
     private float WequalDistance;
     private bool moving = false;
     private bool turning = false;
+    float SpeedRate;
     float HalfCarX;
     float YSpeed;
     float TurnAngle = 361.0f;
+    UIControl uIControl;
     Transform RayShooter;
     SpriteRenderer spriteRenderer;
     Transform EndPoint;
@@ -31,7 +33,9 @@ public class CarMovement : MonoBehaviour
             spriteRenderer.color = Color.red;
         if(lane == 3)
             spriteRenderer.color = Color.green;
-        speed = GameObject.FindGameObjectWithTag("UIControl").GetComponent<UIControl>().CarSpeed;
+        uIControl = GameObject.FindGameObjectWithTag("UIControl").GetComponent<UIControl>();
+        speed = uIControl.CarSpeed;
+        SpeedRate = uIControl.SpeedRate;
         EndPoint = GameObject.FindGameObjectWithTag("EndPoint").transform;
         CompletePoint = transform.parent.Find("CompletePoint");
         RayShooter = gameObject.transform.Find("RayShooter");
@@ -44,6 +48,7 @@ public class CarMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SpeedRate = uIControl.SpeedRate;
         // Destroy Handle
         if(transform.position.x > 13.5f)
             Destroy(this.gameObject);
@@ -81,11 +86,11 @@ public class CarMovement : MonoBehaviour
             turning = false;
         // move and turn
         if(moving)
-            transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
+            transform.position = new Vector3(transform.position.x + speed * Time.deltaTime * SpeedRate, transform.position.y, transform.position.z);
         if(turning)
         {
             transform.eulerAngles = new Vector3(0, 0, TurnAngle);
-            transform.position = new Vector3(transform.position.x , transform.position.y + YSpeed * Time.deltaTime, transform.position.z);
+            transform.position = new Vector3(transform.position.x , transform.position.y + YSpeed * Time.deltaTime * SpeedRate, transform.position.z);
         } 
     }
 }
