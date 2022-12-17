@@ -63,9 +63,9 @@ int main()
         {
             TraceRecode = TraceRecode + "1";
             if (LastCar == 1)
-                TimeIndex = max(Btimes[IndexI], TimeIndex + WEQUAL);
+                TimeIndex = max(Btimes[IndexJ], TimeIndex + WEQUAL);
             else
-                TimeIndex = max(Btimes[IndexI], TimeIndex + WDIFF);
+                TimeIndex = max(Btimes[IndexJ], TimeIndex + WDIFF);
             TimeListB.push_back(TimeIndex);
             LastCar = 1;
             IndexJ = IndexJ + 1;
@@ -86,9 +86,9 @@ int main()
     {
         TraceRecode = TraceRecode + "1";
         if (LastCar == 1)
-            TimeIndex = max(Btimes[IndexI], TimeIndex + WEQUAL);
+            TimeIndex = max(Btimes[IndexJ], TimeIndex + WEQUAL);
         else
-            TimeIndex = max(Btimes[IndexI], TimeIndex + WDIFF);
+            TimeIndex = max(Btimes[IndexJ], TimeIndex + WDIFF);
         TimeListB.push_back(TimeIndex);
         LastCar = 1;
         IndexJ = IndexJ + 1;
