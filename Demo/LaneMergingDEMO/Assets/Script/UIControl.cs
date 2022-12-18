@@ -7,6 +7,8 @@ public class UIControl : MonoBehaviour
 {
     public float CarSpeed;
     public float SpeedRate = 1.0f;
+    public float Tf = 2.0f;
+    private int NowScene = 0; // 0 for two lane merging , 1 for con lane merging
     float timer = 0.0f;
     bool TimeStart;
     Text TimeText;
@@ -14,6 +16,8 @@ public class UIControl : MonoBehaviour
     Text CompleteText2;
     Text SpeedText;
     LaneControl[] laneControl;
+    GameObject TwoLane;
+    GameObject ConLane;
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,13 +27,16 @@ public class UIControl : MonoBehaviour
         SpeedText = transform.Find("SpeedRateText").GetComponent<Text>();
         TimeText.text = "0.0";
         transform.Find("StartBtn").GetComponent<Button>().onClick.AddListener(BtnEvent);
+        transform.Find("ChangeSceneBtn").GetComponent<Button>().onClick.AddListener(ChangeScence);
         transform.Find("FastBtn").GetComponent<Button>().onClick.AddListener(delegate { SetSpeedRate(true); });
         transform.Find("SlowBtn").GetComponent<Button>().onClick.AddListener(delegate { SetSpeedRate(false); });
+        TwoLane = GameObject.Find("TwoLane");
+        ConLane = GameObject.Find("ConLane");
         GameObject[] LaneObject = GameObject.FindGameObjectsWithTag("LaneControl");
         laneControl = new LaneControl[LaneObject.Length];
         for(int i = 0; i < laneControl.Length; i++)
             laneControl[i] = LaneObject[i].GetComponent<LaneControl>();
-
+        ConLane.SetActive(false);
     }
     void Start()
     {
@@ -52,7 +59,13 @@ public class UIControl : MonoBehaviour
     {
         TimeStart = true;
         foreach(GameObject lane in GameObject.FindGameObjectsWithTag("StartPoint"))
+        {
             lane.GetComponent<CreateCar>().enabled = true;
+            lane.GetComponent<CreateCar>().Tf = Tf;
+            lane.GetComponent<CreateCar>().InitialTime = timer;
+            lane.GetComponent<CreateCar>().speed = CarSpeed;
+            lane.GetComponent<CreateCar>().SetInitialTime();
+        }
     }
     public void SetInitialTime(float t)
     {
@@ -72,5 +85,20 @@ public class UIControl : MonoBehaviour
             SpeedRate = Math.Min(SpeedRate * 2, 8.0f);
         else if(!Faster)
             SpeedRate = Math.Max(SpeedRate / 2, 1.0f);
+    }
+    private void ChangeScence()
+    {
+        if(NowScene == 0)
+        {
+            TwoLane.SetActive(false);
+            ConLane.SetActive(true);
+            NowScene = 1;
+        }
+        else if(NowScene == 1)
+        {
+            TwoLane.SetActive(true);
+            ConLane.SetActive(false);
+            NowScene = 0;
+        } 
     }
 }

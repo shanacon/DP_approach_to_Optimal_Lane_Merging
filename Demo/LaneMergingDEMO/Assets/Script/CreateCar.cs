@@ -8,6 +8,10 @@ public class CreateCar : MonoBehaviour
     public GameObject car;
     public string FileNameInResources;
     public int LaneNum;
+    public bool Con = false;
+    public float Tf;
+    public float InitialTime;
+    public float speed; //Initial Speed
     private TextAsset Result;
     float[] Times;
     int Index = 1;
@@ -40,9 +44,28 @@ public class CreateCar : MonoBehaviour
                 count = 0;
             GameObject NewCar =  Instantiate(car, pos, car.transform.rotation);
             NewCar.transform.parent = this.gameObject.transform.parent;
-            NewCar.GetComponent<CarMovement>().lane = LaneNum;
-            NewCar.GetComponent<CarMovement>().CarID = LaneNum.ToString() + "@" + (Index - 1).ToString();
+            if(!Con)
+            {
+                NewCar.GetComponent<CarMovement>().lane = LaneNum;
+                NewCar.GetComponent<CarMovement>().CarID = LaneNum.ToString() + "@" + (Index - 1).ToString();
+            }
+            else
+            {
+                NewCar.GetComponent<CarConMovement>().lane = LaneNum;
+                NewCar.GetComponent<CarConMovement>().CarID = LaneNum.ToString() + "@" + (Index - 1).ToString();
+                NewCar.GetComponent<CarConMovement>().Tf = Tf;
+            }
             Index++;
+        }
+    }
+    public void SetInitialTime()
+    {
+        if(LaneNum == 2)
+        {
+            Transform StartPoint3 = transform.parent.Find("StartPoint3");
+            Transform EndPoint2 = transform.parent.Find("EndPoint2");
+            float ToSecTime = (float)((EndPoint2.position.x - StartPoint3.position.x)/speed);
+            timer-= ToSecTime;
         }
     }
 }

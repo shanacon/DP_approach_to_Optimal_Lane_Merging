@@ -331,8 +331,8 @@ int main()
     TraceOne.erase(remove(TraceOne.begin(), TraceOne.end(), '2'), TraceOne.end());
     cout << TraceRecode << endl;
     cout << TraceOne << endl;
-    IndexI = 0;
-    IndexJ = 0;
+    IndexI = 1;
+    IndexJ = 1;
     char IndexLast = 'a';
     double IndexTime = 0;
     for (char c : TraceOne)
