@@ -11,6 +11,11 @@ public class UIControl : MonoBehaviour
     public float Tf;
     private int NowScene = 0; // 0 for two lane merging , 1 for con lane merging
     float timer = 0.0f;
+    int CaseCount = 0;
+    float SDPL = 0.0f;
+    float SDPT = 0.0f;
+    float SFIFOL = 0.0f;
+    float SFIFOT = 0.0f;
     bool TimeStart;
     Text TimeText;
     Text CompleteText1;
@@ -20,6 +25,10 @@ public class UIControl : MonoBehaviour
     Text DPT;
     Text FIFOL;
     Text FIFOT;
+    Text MDPL;
+    Text MDPT;
+    Text MFIFOL;
+    Text MFIFOT;
     LaneControl[] laneControl;
     InputField LambdaInput;
     InputField CaseLenInput;
@@ -42,6 +51,10 @@ public class UIControl : MonoBehaviour
         DPT = transform.Find("DPT").GetComponent<Text>();
         FIFOL = transform.Find("FIFOL").GetComponent<Text>();
         FIFOT = transform.Find("FIFOT").GetComponent<Text>();
+        MDPL = transform.Find("MDPL").GetComponent<Text>();
+        MDPT = transform.Find("MDPT").GetComponent<Text>();
+        MFIFOL = transform.Find("MFIFOL").GetComponent<Text>();
+        MFIFOT = transform.Find("MFIFOT").GetComponent<Text>();
         //
         LambdaInput = transform.Find("Lambda").GetComponent<InputField>();
         CaseLenInput = transform.Find("CaseLen").GetComponent<InputField>();
@@ -158,6 +171,7 @@ public class UIControl : MonoBehaviour
     }
     private void RandomData()
     {
+        CaseCount++;
         DllLibrary.ClearAll();
         double labda =  Convert.ToDouble(LambdaInput.text);
         int Caselen =  Convert.ToInt32(CaseLenInput.text);
@@ -165,33 +179,54 @@ public class UIControl : MonoBehaviour
         float Wdiff_ = Convert.ToSingle(WplusInput.text);
         float Tf_ = Convert.ToSingle(TfInput.text);
         Tf = Tf_;
+        float L ;
+        float T ;
         if(TwoToggle.isOn)
         {
             DllLibrary.SetUpRandom(labda, Caselen, 2, Wequal_, Wdiff_, Tf_);
             DllLibrary.DoDP();
             SetCalData(0);
-            DPL.text = DllLibrary.GetFinalTime().ToString();
-            DPT.text = DllLibrary.GetTDelay().ToString();
+            L = DllLibrary.GetFinalTime();
+            T = DllLibrary.GetTDelay();
+            DPL.text = L.ToString();
+            DPT.text = T.ToString();
+            SDPL = (float)(SDPL + L);
+            SDPT = (float)(SDPT + T);
             ///
             DllLibrary.DoFIFO();
             SetCalData(1);
+            L = DllLibrary.GetFinalTime();
+            T = DllLibrary.GetTDelay();
             FIFOL.text = DllLibrary.GetFinalTime().ToString();
             FIFOT.text = DllLibrary.GetTDelay().ToString();
+            SFIFOL = (float)(SFIFOL + L);
+            SFIFOT = (float)(SFIFOT + T);
         }  
         else
         {
             DllLibrary.SetUpRandom(labda, Caselen, 3, Wequal_, Wdiff_, Tf_);
             DllLibrary.DoConDP();
             SetCalData(0);
-            DPL.text = DllLibrary.GetFinalTime().ToString();
-            DPT.text = DllLibrary.GetTDelay().ToString();
+            L = DllLibrary.GetFinalTime();
+            T = DllLibrary.GetTDelay();
+            DPL.text = L.ToString();
+            DPT.text = T.ToString();
+            SDPL = (float)(SDPL + L);
+            SDPT = (float)(SDPT + T);
             ///
             DllLibrary.DoConFIFO();
             SetCalData(1);
-            FIFOL.text = DllLibrary.GetFinalTime().ToString();
-            FIFOT.text = DllLibrary.GetTDelay().ToString();
+            L = DllLibrary.GetFinalTime();
+            T = DllLibrary.GetTDelay();
+            FIFOL.text = L.ToString();
+            FIFOT.text = T.ToString();
+            SFIFOL = (float)(SFIFOL + L);
+            SFIFOT = (float)(SFIFOT + T);
         }
-            
+        MDPL.text = ((float)SDPL/CaseCount).ToString();
+        MDPT.text = ((float)SDPT/CaseCount).ToString();
+        MFIFOL.text = ((float)SFIFOL/CaseCount).ToString();
+        MFIFOT.text = ((float)SFIFOT/CaseCount).ToString();
     }
     private void CheckToggle(int i)
     {
