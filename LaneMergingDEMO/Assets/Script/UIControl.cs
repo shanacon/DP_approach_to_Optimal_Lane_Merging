@@ -25,6 +25,7 @@ public class UIControl : MonoBehaviour
     InputField CaseLenInput;
     Toggle TwoToggle;
     Toggle ConToggle;
+    Toggle SmallToggle;
     GameObject TwoLane;
     GameObject ConLane;
     // Start is called before the first frame update
@@ -43,12 +44,13 @@ public class UIControl : MonoBehaviour
         CaseLenInput = transform.Find("CaseLen").GetComponent<InputField>();
         TwoToggle = transform.Find("TwoCheck").GetComponent<Toggle>();
         ConToggle = transform.Find("ConCheck").GetComponent<Toggle>();
+        SmallToggle = transform.Find("SmallCheck").GetComponent<Toggle>();
         TwoToggle.onValueChanged.AddListener(delegate { CheckToggle(0); });
         ConToggle.onValueChanged.AddListener(delegate { CheckToggle(1); });
         //
         TimeText.text = "0.0";
         transform.Find("StartBtn").GetComponent<Button>().onClick.AddListener(StartEvent);
-        transform.Find("ChangeSceneBtn").GetComponent<Button>().onClick.AddListener(ChangeScence);
+        // transform.Find("ChangeSceneBtn").GetComponent<Button>().onClick.AddListener(ChangeScence);
         transform.Find("FastBtn").GetComponent<Button>().onClick.AddListener(delegate { SetSpeedRate(true); });
         transform.Find("SlowBtn").GetComponent<Button>().onClick.AddListener(delegate { SetSpeedRate(false); });
         transform.Find("RandomBtn").GetComponent<Button>().onClick.AddListener(RandomData);
@@ -102,11 +104,13 @@ public class UIControl : MonoBehaviour
         foreach(GameObject lane in GameObject.FindGameObjectsWithTag("StartPoint"))
         {
             lane.GetComponent<CreateCar>().enabled = true;
+            lane.GetComponent<CreateCar>().SmallerCar = SmallToggle.isOn;
             lane.GetComponent<CreateCar>().Tf = Tf;
             lane.GetComponent<CreateCar>().InitialTime = timer;
             lane.GetComponent<CreateCar>().speed = CarSpeed;
             lane.GetComponent<CreateCar>().SetInitialTime();
         }
+        SmallToggle.gameObject.SetActive(false);
     }
     public void SetInitialTime(float t)
     {

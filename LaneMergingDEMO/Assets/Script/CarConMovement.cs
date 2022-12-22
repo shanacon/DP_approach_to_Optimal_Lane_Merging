@@ -32,6 +32,7 @@ public class CarConMovement : MonoBehaviour
     Transform CompletePoint1;
     Transform EndPoint2;
     Transform CompletePoint2;
+    Vector3 pos;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -45,6 +46,7 @@ public class CarConMovement : MonoBehaviour
         RayShooter = gameObject.transform.Find("RayShooter");
         HalfCarX = (float)(GetComponent<BoxCollider2D>().size.x) / 2.0f;
         WequalDistance = speed1 * Sequal;
+        pos = transform.position;
         if(lane == 0)
         {
             spriteRenderer.color = Color.blue;
@@ -67,7 +69,6 @@ public class CarConMovement : MonoBehaviour
         if(lane == 2)
         {
             spriteRenderer.color = Color.red;
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
             float CrossTime2 = (float)((CompletePoint2.position.x - EndPoint2.position.x) / speed1);
             Y2Speed = -(float)((transform.position.y - CompletePoint2.position.y) / CrossTime2);
             phase = 1;
@@ -88,7 +89,10 @@ public class CarConMovement : MonoBehaviour
         float FrontDistance = WequalDistance + 10.0f;
         RaycastHit2D hit = Physics2D.Raycast(RayShooter.position, Vector2.right);
         if (hit.collider != null)
+        {
             FrontDistance = hit.point.x - RayShooter.position.x;
+            transform.position = new Vector3(transform.position.x, transform.position.y, hit.transform.position.z - 0.1f);
+        }   
         // check stop
         if(FrontDistance < WequalDistance)
             moving = false;

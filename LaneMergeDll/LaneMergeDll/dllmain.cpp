@@ -288,7 +288,7 @@ void DoFIFO()
 			TraceRecode = TraceRecode + "0";
 			if (LastCar == 0)
 				TimeIndex = max(ATimes[IndexI], TimeIndex + WEQUAL);
-			else if (LastCar == 1)
+			else
 				TimeIndex = max(ATimes[IndexI], TimeIndex + WDIFF);
 			TimeListA.push_back(TimeIndex);
 			LastCar = 0;
@@ -392,7 +392,7 @@ void DoConDP()
 	{
 		L1A[i][0][0] = max(ATimes[i], L1A[i - 1][0][0] + W1EQUAL);
 		L1B[i][0][0] = float('inf');
-		L1Ca[i][0][0] = max(ATimes[i], L1Ca[i - 1][0][0] + W1EQUAL); //?
+		L1Ca[i][0][0] = float('inf'); //?
 		L1Cb[i][0][0] = float('inf');
 	}
 	for (int i = 1;i < beta + 1;i++)
@@ -400,7 +400,7 @@ void DoConDP()
 		L1A[0][i][0] = float('inf');
 		L1B[0][i][0] = max(BTimes[i], L1B[0][i - 1][0] + W1EQUAL);
 		L1Ca[0][i][0] = float('inf');
-		L1Cb[0][i][0] = max(BTimes[i], L1Cb[0][i - 1][0] + W1EQUAL); //?
+		L1Cb[0][i][0] = float('inf'); //?
 	}
 	for (int i = 1;i < theta + 1;i++)
 	{

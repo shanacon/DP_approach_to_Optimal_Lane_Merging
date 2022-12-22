@@ -10,8 +10,8 @@ public class LaneControl : MonoBehaviour
     public int Case;
     public bool Con = false;
     UIControl uIControl;
-    float[] TimeListA1;
-    float[] TimeListB1;
+    public float[] TimeListA1;
+    public float[] TimeListB1;
     public float[] TimeListA;
     public float[] TimeListB;
     public float[] TimeListC;

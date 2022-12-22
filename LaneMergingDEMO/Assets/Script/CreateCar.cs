@@ -12,8 +12,9 @@ public class CreateCar : MonoBehaviour
     public float Tf;
     public float InitialTime;
     public float speed; //Initial Speed
+    public bool SmallerCar;
     private TextAsset Result;
-    float[] Times;
+    public float[] Times;
     int Index = 1;
     float timer = 0.0f;
     int count = 0;
@@ -45,6 +46,7 @@ public class CreateCar : MonoBehaviour
             } 
             else
                 count = 0;
+            pos.z-=(0.1f * Index);
             GameObject NewCar =  Instantiate(car, pos, car.transform.rotation);
             NewCar.transform.parent = this.gameObject.transform.parent;
             if(!Con)
@@ -57,6 +59,12 @@ public class CreateCar : MonoBehaviour
                 NewCar.GetComponent<CarConMovement>().lane = LaneNum;
                 NewCar.GetComponent<CarConMovement>().CarID = LaneNum.ToString() + "@" + (Index - 1).ToString();
                 NewCar.GetComponent<CarConMovement>().Tf = Tf;
+            }
+            if(SmallerCar)
+            {
+                BoxCollider2D collider2D = NewCar.GetComponent<BoxCollider2D>();
+                collider2D.offset = new Vector2(collider2D.offset.x + 0.35f, 0f);
+                collider2D.size = new Vector2(collider2D.size.x * 0.22f, 1f);
             }
             Index++;
         }

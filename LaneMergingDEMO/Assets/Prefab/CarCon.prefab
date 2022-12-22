@@ -93,5 +93,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lane: 0
   GoTime: 0
+  GoTime2: 0
   NowTime: 0
   CarID: 
+  GoSign1: 0
+  GoSign2: 0
+  Tf: 0
