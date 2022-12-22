@@ -10,7 +10,7 @@ Which are **two-lane merging problem** and **consecutive lane merging problem** 
 ![consecutive lane](https://user-images.githubusercontent.com/79785416/209139631-447f4a36-dfbe-41c0-8754-9ee6e62df062.png)
 This project implement the algorithm proposed by this paper by c++, and demo the result compare with First-In-First-Out algorithm by unity.
 ## How to use Demo
-![Demo](https://user-images.githubusercontent.com/79785416/209155758-cc66b242-c787-4da7-a8fb-162dd284170f.png)
+![Demo](https://user-images.githubusercontent.com/79785416/209180628-e73e5326-af7e-44aa-a650-b80c8b9e1203.png)
 ### W=
 When two vehicles consecutively pass the merging point and they are from same incoming lane.\
 W= is the minimun time to wait between times of these two vehicles pass the merging point.
@@ -31,7 +31,7 @@ Check one of them to choose which scenario to demo.
 Check this if you want a smaller collider box for cars.\
 This function is mainly needed in **consecutive lane merging** because the transfer lane is too short to contain all car.
 ### Run
-Run the algorithm and the result will show in the table at right side.
+Run the algorithm and the result and mean result will show in the table at right side.
 LastTime mean time of the last car to pass the last junction
 Tdelay mean the mean delay of each car to pass the junction.\
 It will be always -1 when doing **consecutive lane merging**. Because this paper doesn't mention how to calculate Tdelay in **consecutive lane merging**.
@@ -60,4 +60,4 @@ This code send message to each car which tell them when to cross the junction.
 > #### UIControl.cs
 This code control the UI of Demo. Also send global time to each lane manager.
 ## DEMO program
-Download and try to use it at [here](https://drive.google.com/file/d/1qSWYHTa4ab9nxCnUXdOyeVTGqBvtpLcu/view?usp=share_link)
+Download and try to use it at [here](https://drive.google.com/file/d/1z4p1Zb61VB6lbk0vjFaWgI91uyrMpVVR/view?usp=share_link)
