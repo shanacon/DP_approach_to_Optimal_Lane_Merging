@@ -109,6 +109,7 @@ public class UIControl : MonoBehaviour
         TfInput.gameObject.SetActive(false);
         transform.Find("RandomBtn").gameObject.SetActive(false);
         transform.Find("AllInputText").gameObject.SetActive(false);
+        transform.Find("StartBtn").gameObject.SetActive(false);
         TimeStart = true;
         foreach(GameObject lane in GameObject.FindGameObjectsWithTag("StartPoint"))
         {
