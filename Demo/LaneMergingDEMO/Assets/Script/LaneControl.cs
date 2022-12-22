@@ -5,18 +5,16 @@ using System.Linq;
 
 public class LaneControl : MonoBehaviour
 {
-    public string FileNameInResources;
     public float TimeToInsec;
     public float NowTime;
     public int Case;
     public bool Con = false;
-    private TextAsset Result;
     UIControl uIControl;
     float[] TimeListA1;
     float[] TimeListB1;
-    float[] TimeListA;
-    float[] TimeListB;
-    float[] TimeListC;
+    public float[] TimeListA;
+    public float[] TimeListB;
+    public float[] TimeListC;
     bool end = false;
     
     // Start is called before the first frame update
@@ -30,20 +28,19 @@ public class LaneControl : MonoBehaviour
         uIControl = GameObject.FindGameObjectWithTag("UIControl").GetComponent<UIControl>();
         uIControl.SetInitialTime(TimeToInsec);
         // handle result file
-        Result = Resources.Load<TextAsset>(FileNameInResources);
-        string[] lineData = Result.text.Split('\n');
         if(!Con)
         {
-            TimeListA = Array.ConvertAll(lineData[3].Remove(lineData[3].Length - 2).Split(' '), s => float.Parse(s));
-            TimeListB = Array.ConvertAll(lineData[4].Remove(lineData[4].Length - 2).Split(' '), s => float.Parse(s));
+            
+            TimeListA = DllLibrary.TimeListA[Case].ToArray();
+            TimeListB = DllLibrary.TimeListB[Case].ToArray();
         }
         else
         {
-            TimeListA1 = Array.ConvertAll(lineData[5].Remove(lineData[5].Length - 2).Split(' '), s => float.Parse(s));
-            TimeListB1 = Array.ConvertAll(lineData[6].Remove(lineData[6].Length - 2).Split(' '), s => float.Parse(s));
-            TimeListA = Array.ConvertAll(lineData[7].Remove(lineData[7].Length - 2).Split(' '), s => float.Parse(s));
-            TimeListB = Array.ConvertAll(lineData[8].Remove(lineData[8].Length - 2).Split(' '), s => float.Parse(s));
-            TimeListC = Array.ConvertAll(lineData[9].Remove(lineData[9].Length - 2).Split(' '), s => float.Parse(s));
+            TimeListA1 = DllLibrary.TimeListA1[Case].ToArray();
+            TimeListB1 = DllLibrary.TimeListB1[Case].ToArray();
+            TimeListA = DllLibrary.TimeListA[Case].ToArray();
+            TimeListB = DllLibrary.TimeListB[Case].ToArray();
+            TimeListC = DllLibrary.TimeListC[Case].ToArray();
         }
     }
 

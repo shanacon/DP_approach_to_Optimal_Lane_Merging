@@ -6,7 +6,7 @@ using UnityEngine;
 public class CreateCar : MonoBehaviour
 {
     public GameObject car;
-    public string FileNameInResources;
+    public int DPorFIFO;
     public int LaneNum;
     public bool Con = false;
     public float Tf;
@@ -19,9 +19,12 @@ public class CreateCar : MonoBehaviour
     int count = 0;
     void Start()
     {
-        Result = Resources.Load<TextAsset>(FileNameInResources);
-        string[] lineData = Result.text.Split('\n');
-        Times = Array.ConvertAll(lineData[LaneNum].Remove(lineData[LaneNum].Length - 2).Split(' '), s => float.Parse(s));
+        if(LaneNum == 0)
+            Times = DllLibrary.Atimes[DPorFIFO].ToArray();
+        if(LaneNum == 1)
+            Times = DllLibrary.Btimes[DPorFIFO].ToArray();
+        if(LaneNum == 2)
+            Times = DllLibrary.Ctimes[DPorFIFO].ToArray();
     }
     void Update()
     {
