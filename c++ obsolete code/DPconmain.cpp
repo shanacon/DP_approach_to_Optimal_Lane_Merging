@@ -289,7 +289,6 @@ int main()
     vector<double> TimeListB;
     vector<double> TimeListC;
     //
-    From = 1;
     while (IndexI > 0 || IndexJ > 0 || IndexK > 0)
     {
         //cout << IndexI << " " << IndexJ << " " << IndexK << endl;

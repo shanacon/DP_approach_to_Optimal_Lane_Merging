@@ -598,7 +598,6 @@ void DoConDP()
 	int IndexI = alpha, IndexJ = beta, IndexK = theta, From = ret.index;
 	string TraceRecode = "";
 	//
-	From = 1;
 	while (IndexI > 0 || IndexJ > 0 || IndexK > 0)
 	{
 		//cout << IndexI << " " << IndexJ << " " << IndexK << endl;
@@ -796,9 +795,9 @@ void DoConFIFO()
 	{
 		TraceRecode = TraceRecode + "2";
 		if (LastCar == 1)
-			TimeIndex = max(CTimes[IndexI], TimeIndex + W1EQUAL);
+			TimeIndex = max(CTimes[IndexJ], TimeIndex + W1EQUAL);
 		else
-			TimeIndex = max(CTimes[IndexI], TimeIndex + W1DIFF);
+			TimeIndex = max(CTimes[IndexJ], TimeIndex + W1DIFF);
 		TimeListC.push_back(TimeIndex);
 		LastCar = 1;
 		IndexJ++;

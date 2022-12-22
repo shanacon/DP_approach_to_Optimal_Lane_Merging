@@ -120,6 +120,10 @@ public class UIControl : MonoBehaviour
         WequalInput.gameObject.SetActive(false);
         WplusInput.gameObject.SetActive(false);
         TfInput.gameObject.SetActive(false);
+        MDPL.gameObject.SetActive(false);
+        MDPT.gameObject.SetActive(false);
+        MFIFOL.gameObject.SetActive(false);
+        MFIFOT.gameObject.SetActive(false);
         transform.Find("RandomBtn").gameObject.SetActive(false);
         transform.Find("AllInputText").gameObject.SetActive(false);
         transform.Find("StartBtn").gameObject.SetActive(false);
