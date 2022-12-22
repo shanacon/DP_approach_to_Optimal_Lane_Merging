@@ -63,13 +63,17 @@ void SetUpRandom(double lamba_, int CaseLen_, int CaseNum_, float Wequal_, float
 	vector<int> tmp;
 	if (CaseNum >= 1)
 	{
-		for (int j = 0; j < CaseLen; j++)
+		int count = 0;
+		while (count < CaseLen)
 		{
 			int number = distribution(generator);
+			if (count + number > CaseLen)
+				number = CaseLen - count;
+			count += number;
 			tmp.push_back(number);
 		}
 		ATimes.push_back(-1);
-		for (int j = 0; j < CaseLen; j++)
+		for (int j = 0; j < tmp.size(); j++)
 		{
 			for (int k = 0;k < tmp[j];k++)
 				ATimes.push_back(j + 1);
@@ -86,13 +90,17 @@ void SetUpRandom(double lamba_, int CaseLen_, int CaseNum_, float Wequal_, float
 	tmp.clear();
 	if (CaseNum >= 2)
 	{
-		for (int j = 0; j < CaseLen; j++)
+		int count = 0;
+		while (count < CaseLen)
 		{
 			int number = distribution(generator);
+			if (count + number > CaseLen)
+				number = CaseLen - count;
+			count += number;
 			tmp.push_back(number);
 		}
 		BTimes.push_back(-1);
-		for (int j = 0; j < CaseLen; j++)
+		for (int j = 0; j < tmp.size(); j++)
 		{
 			for (int k = 0;k < tmp[j];k++)
 				BTimes.push_back(j + 1);
@@ -109,13 +117,17 @@ void SetUpRandom(double lamba_, int CaseLen_, int CaseNum_, float Wequal_, float
 	tmp.clear();
 	if (CaseNum >= 3)
 	{
-		for (int j = 0; j < CaseLen; j++)
+		int count = 0;
+		while (count < CaseLen)
 		{
 			int number = distribution(generator);
+			if (count + number > CaseLen)
+				number = CaseLen - count;
+			count += number;
 			tmp.push_back(number);
 		}
 		CTimes.push_back(-1);
-		for (int j = 0; j < CaseLen; j++)
+		for (int j = 0; j < tmp.size(); j++)
 		{
 			for (int k = 0;k < tmp[j];k++)
 				CTimes.push_back(j + 1);
