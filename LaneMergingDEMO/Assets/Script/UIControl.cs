@@ -193,7 +193,7 @@ public class UIControl : MonoBehaviour
         DllLibrary.Btimes[index] = new List<float>();
         DllLibrary.Ctimes[index] = new List<float>();
         int s = -1;
-        int[] arr = new int[1000];
+        float[] arr = new float[1000];
         ////
         s = DllLibrary.GetTimeAns(1,arr);
         for(int i = 0;i < s;i++)
@@ -212,14 +212,15 @@ public class UIControl : MonoBehaviour
         for(int i = 0;i < s;i++)
             DllLibrary.TimeListB1[index].Add((float)arr[i]);
         ////
-        s = DllLibrary.GetRealTime(1,arr);
+        int[] IntArr = new int[1000];
+        s = DllLibrary.GetRealTime(1,IntArr);
         for(int i = 0;i < s;i++)
-            DllLibrary.Atimes[index].Add((float)arr[i]);
-        s = DllLibrary.GetRealTime(2,arr);
+            DllLibrary.Atimes[index].Add((float)IntArr[i]);
+        s = DllLibrary.GetRealTime(2,IntArr);
         for(int i = 0;i < s;i++)
-            DllLibrary.Btimes[index].Add((float)arr[i]);
-        s = DllLibrary.GetRealTime(3,arr);
+            DllLibrary.Btimes[index].Add((float)IntArr[i]);
+        s = DllLibrary.GetRealTime(3,IntArr);
         for(int i = 0;i < s;i++)
-            DllLibrary.Ctimes[index].Add((float)arr[i]);
+            DllLibrary.Ctimes[index].Add((float)IntArr[i]);
     }
 }

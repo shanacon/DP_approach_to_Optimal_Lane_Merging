@@ -20,13 +20,13 @@ static public class DllLibrary
     [DllImport("LaneMergeDll.dll")]
     public static extern void DoConFIFO();
     [DllImport("LaneMergeDll.dll")]
-    public static extern int GetTimeOneAns(int LaneNum, int[] TimeList);
+    public static extern int GetTimeOneAns(int LaneNum, float[] TimeList);
     [DllImport("LaneMergeDll.dll")]
-    public static extern int GetTimeAns(int LaneNum, int[] TimeList);
+    public static extern int GetTimeAns(int LaneNum, float[] TimeList);
     [DllImport("LaneMergeDll.dll")]
-    public static extern int GetFinalTime();
+    public static extern float GetFinalTime();
     [DllImport("LaneMergeDll.dll")]
-    public static extern double GetTDelay();
+    public static extern float GetTDelay();
     [DllImport("LaneMergeDll.dll")]
     public static extern void ClearAll();
     [DllImport("LaneMergeDll.dll")]

@@ -9,19 +9,19 @@ using namespace std;
 static double lamba;
 static int CaseLen;
 static int CaseNum;
-static vector<int> ATimes;
-static vector<int> BTimes;
-static vector<int> CTimes;
-static vector<int> ARealTimes;
-static vector<int> BRealTimes;
-static vector<int> CRealTimes;
-static vector<int> TimeListA1;
-static vector<int> TimeListB1;
-static vector<int> TimeListA;
-static vector<int> TimeListB;
-static vector<int> TimeListC;
-static int FinalTime;
-static double Tdelay;
+static vector<float> ATimes;
+static vector<float> BTimes;
+static vector<float> CTimes;
+static vector<float> ARealTimes;
+static vector<float> BRealTimes;
+static vector<float> CRealTimes;
+static vector<float> TimeListA1;
+static vector<float> TimeListB1;
+static vector<float> TimeListA;
+static vector<float> TimeListB;
+static vector<float> TimeListC;
+static float FinalTime;
+static float Tdelay;
 static default_random_engine generator;
 struct MinReturn
 {
@@ -172,31 +172,31 @@ void DoDP()
 	TimeListA.clear();
 	TimeListB.clear();
 	TimeListC.clear();
-	int WEQUAL = 1;
-	int WDIFF = 3;
+	float WEQUAL = 1;
+	float WDIFF = 3;
 	int alpha = ATimes.size() - 1;
 	int beta = BTimes.size() - 1;
 	// initialize
-	vector<vector<int> > LA(alpha + 1, vector<int>(beta + 1));
-	vector<vector<int> > LB(alpha + 1, vector<int>(beta + 1));
-	vector<vector<int> > RA(alpha + 1, vector<int>(beta + 1, -1));
-	vector<vector<int> > RB(alpha + 1, vector<int>(beta + 1, -1));
+	vector<vector<float> > LA(alpha + 1, vector<float>(beta + 1));
+	vector<vector<float> > LB(alpha + 1, vector<float>(beta + 1));
+	vector<vector<float> > RA(alpha + 1, vector<float>(beta + 1, -1));
+	vector<vector<float> > RB(alpha + 1, vector<float>(beta + 1, -1));
 	LA[1][0] = ATimes[1];
 	LB[0][1] = BTimes[1];
-	LA[0][1] = int('inf');
-	LB[1][0] = int('inf');
+	LA[0][1] = float('inf');
+	LB[1][0] = float('inf');
 	RA[1][0] = 0;
 	RB[0][1] = 1;
 	for (int i = 2;i < alpha + 1;i++)
 	{
 		LA[i][0] = max(ATimes[i], LA[i - 1][0] + WEQUAL);
-		LB[i][0] = int('inf');
+		LB[i][0] = float('inf');
 		RA[i][0] = 0;
 	}
 	for (int i = 2;i < beta + 1;i++)
 	{
 		LB[0][i] = max(BTimes[i], LB[0][i - 1] + WEQUAL);
-		LA[0][i] = int('inf');
+		LA[0][i] = float('inf');
 		RB[0][i] = 1;
 	}
 	// DP part
@@ -204,8 +204,8 @@ void DoDP()
 	{
 		for (int j = 1;j < beta + 1;j++)
 		{
-			int Amax = max(ATimes[i], LA[i - 1][j] + WEQUAL);
-			int Bmax = max(ATimes[i], LB[i - 1][j] + WDIFF);
+			float Amax = max(ATimes[i], LA[i - 1][j] + WEQUAL);
+			float Bmax = max(ATimes[i], LB[i - 1][j] + WDIFF);
 			LA[i][j] = min(Amax, Bmax);
 			if (Amax <= Bmax)
 				RA[i][j] = 0;
@@ -271,14 +271,14 @@ void DoFIFO()
 	TimeListA.clear();
 	TimeListB.clear();
 	TimeListC.clear();
-	int WEQUAL = 1.0;
-	int WDIFF = 3.0;
+	float WEQUAL = 1.0;
+	float WDIFF = 3.0;
 	int alpha = ATimes.size() - 1;
 	int beta = BTimes.size() - 1;
 	int IndexI = 1;
 	int IndexJ = 1;
 	int LastCar = -1;  // 0 mean from a, 1 mean from b
-	int TimeIndex = -3;
+	float TimeIndex = -3;
 	string TraceRecode = "";
 	// FIFO
 	while (IndexI < alpha + 1 && IndexJ < beta + 1)
@@ -354,32 +354,32 @@ void DoConDP()
 	TimeListC.clear();
 	TimeListA1.clear();
 	TimeListB1.clear();
-	int W1EQUAL = 1;
-	int W1DIFF = 3;
-	int W2EQUAL = 1;
-	int W2DIFF = 3;
-	int Tf = 2;
+	float W1EQUAL = 1;
+	float W1DIFF = 3;
+	float W2EQUAL = 1;
+	float W2DIFF = 3;
+	float Tf = 2;
 	int alpha = ATimes.size() - 1;
 	int beta = BTimes.size() - 1;
 	int theta = CTimes.size() - 1;
 	// initialize
-	vector<vector<vector<int> > > L1A(alpha + 1, vector<vector<int> >(beta + 1, vector <int>(theta + 1)));
-	vector<vector<vector<int> > > L1B(alpha + 1, vector<vector<int> >(beta + 1, vector <int>(theta + 1)));
-	vector<vector<vector<int> > > L1Ca(alpha + 1, vector<vector<int> >(beta + 1, vector <int>(theta + 1)));
-	vector<vector<vector<int> > > L1Cb(alpha + 1, vector<vector<int> >(beta + 1, vector <int>(theta + 1)));
-	vector<vector<vector<int> > > L2A(alpha + 1, vector<vector<int> >(beta + 1, vector <int>(theta + 1)));
-	vector<vector<vector<int> > > L2B(alpha + 1, vector<vector<int> >(beta + 1, vector <int>(theta + 1)));
-	vector<vector<vector<int> > > L2Ca(alpha + 1, vector<vector<int> >(beta + 1, vector <int>(theta + 1)));
-	vector<vector<vector<int> > > L2Cb(alpha + 1, vector<vector<int> >(beta + 1, vector <int>(theta + 1)));
+	vector<vector<vector<float> > > L1A(alpha + 1, vector<vector<float> >(beta + 1, vector <float>(theta + 1)));
+	vector<vector<vector<float> > > L1B(alpha + 1, vector<vector<float> >(beta + 1, vector <float>(theta + 1)));
+	vector<vector<vector<float> > > L1Ca(alpha + 1, vector<vector<float> >(beta + 1, vector <float>(theta + 1)));
+	vector<vector<vector<float> > > L1Cb(alpha + 1, vector<vector<float> >(beta + 1, vector <float>(theta + 1)));
+	vector<vector<vector<float> > > L2A(alpha + 1, vector<vector<float> >(beta + 1, vector <float>(theta + 1)));
+	vector<vector<vector<float> > > L2B(alpha + 1, vector<vector<float> >(beta + 1, vector <float>(theta + 1)));
+	vector<vector<vector<float> > > L2Ca(alpha + 1, vector<vector<float> >(beta + 1, vector <float>(theta + 1)));
+	vector<vector<vector<float> > > L2Cb(alpha + 1, vector<vector<float> >(beta + 1, vector <float>(theta + 1)));
 	/// use in backtrace: 0 from A, 1 from B, 2 from Ca, 3 from Cb
 	//vector<vector<vector<double> > > R1A(alpha + 1, vector<vector<double> >(beta + 1, vector <double>(theta + 1, -1)));
 	//vector<vector<vector<double> > > R1B(alpha + 1, vector<vector<double> >(beta + 1, vector <double>(theta + 1, -1)));
 	//vector<vector<vector<double> > > R1Ca(alpha + 1, vector<vector<double> >(beta + 1, vector <double>(theta + 1, -1)));
 	//vector<vector<vector<double> > > R1Cb(alpha + 1, vector<vector<double> >(beta + 1, vector <double>(theta + 1, -1)));
-	vector<vector<vector<int> > > R2A(alpha + 1, vector<vector<int> >(beta + 1, vector <int>(theta + 1, -1)));
-	vector<vector<vector<int> > > R2B(alpha + 1, vector<vector<int> >(beta + 1, vector <int>(theta + 1, -1)));
-	vector<vector<vector<int> > > R2Ca(alpha + 1, vector<vector<int> >(beta + 1, vector <int>(theta + 1, -1)));
-	vector<vector<vector<int> > > R2Cb(alpha + 1, vector<vector<int> >(beta + 1, vector <int>(theta + 1, -1)));
+	vector<vector<vector<float> > > R2A(alpha + 1, vector<vector<float> >(beta + 1, vector <float>(theta + 1, -1)));
+	vector<vector<vector<float> > > R2B(alpha + 1, vector<vector<float> >(beta + 1, vector <float>(theta + 1, -1)));
+	vector<vector<vector<float> > > R2Ca(alpha + 1, vector<vector<float> >(beta + 1, vector <float>(theta + 1, -1)));
+	vector<vector<vector<float> > > R2Cb(alpha + 1, vector<vector<float> >(beta + 1, vector <float>(theta + 1, -1)));
 	L1A[0][0][0] = 0;
 	L1B[0][0][0] = 0;
 	L1Ca[0][0][0] = 0;
@@ -391,15 +391,15 @@ void DoConDP()
 	for (int i = 1;i < alpha + 1;i++)
 	{
 		L1A[i][0][0] = max(ATimes[i], L1A[i - 1][0][0] + W1EQUAL);
-		L1B[i][0][0] = int('inf');
+		L1B[i][0][0] = float('inf');
 		L1Ca[i][0][0] = max(ATimes[i], L1Ca[i - 1][0][0] + W1EQUAL); //?
-		L1Cb[i][0][0] = int('inf');
+		L1Cb[i][0][0] = float('inf');
 	}
 	for (int i = 1;i < beta + 1;i++)
 	{
-		L1A[0][i][0] = int('inf');
+		L1A[0][i][0] = float('inf');
 		L1B[0][i][0] = max(BTimes[i], L1B[0][i - 1][0] + W1EQUAL);
-		L1Ca[0][i][0] = int('inf');
+		L1Ca[0][i][0] = float('inf');
 		L1Cb[0][i][0] = max(BTimes[i], L1Cb[0][i - 1][0] + W1EQUAL); //?
 	}
 	for (int i = 1;i < theta + 1;i++)
@@ -424,18 +424,18 @@ void DoConDP()
 		for (int j = 1;j < theta + 1;j++)
 		{
 			L1A[i][0][j] = max(ATimes[i], L1A[i - 1][0][j] + W1EQUAL);
-			L1B[i][0][j] = int('inf');
+			L1B[i][0][j] = float('inf');
 			L1Ca[i][0][j] = max(ATimes[i], L1A[i - 1][0][j] + W1EQUAL);
-			L1Cb[i][0][j] = int('inf'); //?
+			L1Cb[i][0][j] = float('inf'); //?
 		}
 	}
 	for (int i = 1;i < beta + 1;i++)
 	{
 		for (int j = 1;j < theta + 1;j++)
 		{
-			L1A[0][i][j] = int('inf');
+			L1A[0][i][j] = float('inf');
 			L1B[0][i][j] = max(BTimes[i], L1B[0][i - 1][j] + W1EQUAL);
-			L1Ca[0][i][j] = int('inf'); //?
+			L1Ca[0][i][j] = float('inf'); //?
 			L1Cb[0][i][j] = max(BTimes[i], L1B[0][i - 1][j] + W1EQUAL);
 		}
 	}
@@ -443,22 +443,22 @@ void DoConDP()
 	{
 		L2A[i][0][0] = max(ATimes[i] + Tf, L2A[i - 1][0][0] + W2EQUAL);
 		R2A[i][0][0] = 0;
-		L2B[i][0][0] = int('inf');
-		L2Ca[i][0][0] = int('inf');
-		L2Cb[i][0][0] = int('inf');
+		L2B[i][0][0] = float('inf');
+		L2Ca[i][0][0] = float('inf');
+		L2Cb[i][0][0] = float('inf');
 	}
 	for (int i = 1;i < beta + 1;i++)
 	{
-		L2A[0][i][0] = int('inf');
+		L2A[0][i][0] = float('inf');
 		L2B[0][i][0] = max(BTimes[i] + Tf, L2B[0][i - 1][0] + W2EQUAL);
 		R2B[0][i][0] = 1;
-		L2Ca[0][i][0] = int('inf');
-		L2Cb[0][i][0] = int('inf');
+		L2Ca[0][i][0] = float('inf');
+		L2Cb[0][i][0] = float('inf');
 	}
 	for (int i = 1;i < theta + 1;i++)
 	{
-		L2A[0][0][i] = int('inf');
-		L2B[0][0][i] = int('inf');
+		L2A[0][0][i] = float('inf');
+		L2B[0][0][i] = float('inf');
 		L2Ca[0][0][i] = max(CTimes[i], L2Ca[0][0][i - 1] + W2EQUAL); //?
 		L2Cb[0][0][i] = max(CTimes[i], L2Cb[0][0][i - 1] + W2EQUAL); //?
 		R2Ca[0][0][i] = 2;
@@ -482,8 +482,8 @@ void DoConDP()
 				max(max(BTimes[j], L1Cb[i][j - 1][0] + W1EQUAL) + Tf, L2Cb[i][j - 1][0] + W1DIFF));
 			L2B[i][j][0] = ret.MinNum;
 			R2B[i][j][0] = ret.index;
-			L2Ca[i][j][0] = int('inf');
-			L2Cb[i][j][0] = int('inf');
+			L2Ca[i][j][0] = float('inf');
+			L2Cb[i][j][0] = float('inf');
 		}
 	}
 	for (int i = 1;i < alpha + 1;i++)
@@ -496,7 +496,7 @@ void DoConDP()
 				max(max(ATimes[i], L1Cb[i - 1][0][j] + W1DIFF) + Tf, L2Cb[i - 1][0][j] + W1DIFF));
 			L2A[i][0][j] = ret.MinNum;
 			R2A[i][0][j] = ret.index;
-			L2B[i][0][j] = int('inf');
+			L2B[i][0][j] = float('inf');
 			double max1 = max(CTimes[j], L2A[i][0][j - 1] + W2DIFF);
 			double max2 = max(CTimes[j], L2Ca[i][0][j - 1] + W2EQUAL);
 			L2Ca[i][0][j] = min(max1, max2);
@@ -504,21 +504,21 @@ void DoConDP()
 				R2Ca[i][0][j] = 0;
 			if (L2Ca[i][0][j] == max2)
 				R2Ca[i][0][j] = 2;
-			L2Cb[i][0][j] = int('inf');
+			L2Cb[i][0][j] = float('inf');
 		}
 	}
 	for (int i = 1;i < beta + 1;i++)
 	{
 		for (int j = 1;j < theta + 1;j++)
 		{
-			L2A[0][i][j] = int('inf');
+			L2A[0][i][j] = float('inf');
 			ret = minimum(max(max(BTimes[i], L1A[0][i - 1][j] + W1DIFF) + Tf, L2A[0][i - 1][j] + W2EQUAL),
 				max(max(BTimes[i], L1B[0][i - 1][j] + W1EQUAL) + Tf, L2B[0][i - 1][j] + W2EQUAL),
 				max(max(BTimes[i], L1Ca[0][i - 1][j] + W1DIFF) + Tf, L2Ca[0][i - 1][j] + W1DIFF),
 				max(max(BTimes[i], L1Cb[0][i - 1][j] + W1EQUAL) + Tf, L2Cb[0][i - 1][j] + W1DIFF));
 			L2B[0][i][j] = ret.MinNum;
 			R2B[0][i][j] = ret.index;
-			L2Ca[0][i][j] = int('inf');
+			L2Ca[0][i][j] = float('inf');
 			int max1 = max(CTimes[j], L2B[0][i][j - 1] + W2DIFF);
 			int max2 = max(CTimes[j], L2Ca[0][i][j - 1] + W2EQUAL);
 			L2Cb[0][i][j] = min(max1, max2);
@@ -556,8 +556,8 @@ void DoConDP()
 				R2B[i][j][k] = ret.index;
 				//cout << "L2B " << i << " " << j << " " << k << " " << L2B[i][j][k] << endl;
 				////
-				int max1 = max(CTimes[k], L2A[i][j][k - 1] + W2DIFF);
-				int max2 = max(CTimes[k], L2Ca[i][j][k - 1] + W2EQUAL);
+				float max1 = max(CTimes[k], L2A[i][j][k - 1] + W2DIFF);
+				float max2 = max(CTimes[k], L2Ca[i][j][k - 1] + W2EQUAL);
 				L2Ca[i][j][k] = min(max1, max2);
 				if (L2Ca[i][j][k] == max1)
 					R2Ca[i][j][k] = 0;
@@ -629,7 +629,7 @@ void DoConDP()
 	{
 		if (c == '0')
 		{
-			int w = W1EQUAL;
+			float w = W1EQUAL;
 			if (IndexLast == '0')
 				w = W1EQUAL;
 			else if (IndexLast == '1')
@@ -641,7 +641,7 @@ void DoConDP()
 		}
 		else if (c == '1')
 		{
-			int w = W1EQUAL;
+			float w = W1EQUAL;
 			if (IndexLast == '0')
 				w = W1DIFF;
 			else if (IndexLast == '1')
@@ -662,11 +662,11 @@ void DoConFIFO()
 	TimeListC.clear();
 	TimeListA1.clear();
 	TimeListB1.clear();
-	int W1EQUAL = 1;
-	int W1DIFF = 3;
-	int W2EQUAL = 1;
-	int W2DIFF = 3;
-	int Tf = 2;
+	float W1EQUAL = 1;
+	float W1DIFF = 3;
+	float W2EQUAL = 1;
+	float W2DIFF = 3;
+	float Tf = 2;
 	int alpha = ATimes.size() - 1;
 	int beta = BTimes.size() - 1;
 	int theta = CTimes.size() - 1;
@@ -676,7 +676,7 @@ void DoConFIFO()
 	int LastCar = -1;  // 0 mean from a, 1 mean from b
 	double TimeIndex = -3.0;
 	string TraceOne = "";
-	vector<int> TimeListAB;
+	vector<float> TimeListAB;
 	while (IndexI < alpha + 1 && IndexJ < beta + 1)
 	{
 		if (ATimes[IndexI] <= BTimes[IndexJ])
@@ -787,12 +787,12 @@ void DoConFIFO()
 		LastCar = 1;
 		IndexJ++;
 	}
-	int OutMin = max(TimeListA.back(), TimeListB.back());
+	float OutMin = max(TimeListA.back(), TimeListB.back());
 	OutMin = max(OutMin, TimeListC.back());
 	FinalTime = OutMin;
 	Tdelay = -1;
 }
-int GetTimeOneAns(int LaneNum, int* TimeList)
+int GetTimeOneAns(int LaneNum, float* TimeList)
 {
 	if (LaneNum == 1)
 	{
@@ -807,7 +807,7 @@ int GetTimeOneAns(int LaneNum, int* TimeList)
 		return TimeListB1.size();
 	}
 }
-int GetTimeAns(int LaneNum, int* TimeList)
+int GetTimeAns(int LaneNum, float* TimeList)
 {
 	if (LaneNum == 1)
 	{
@@ -828,11 +828,11 @@ int GetTimeAns(int LaneNum, int* TimeList)
 		return TimeListC.size();
 	}
 }
-int GetFinalTime()
+float GetFinalTime()
 {
 	return FinalTime;
 }
-double GetTDelay()
+float GetTDelay()
 {
 	return Tdelay;
 }
