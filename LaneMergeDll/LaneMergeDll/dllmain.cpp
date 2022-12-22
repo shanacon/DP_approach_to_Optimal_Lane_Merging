@@ -190,6 +190,7 @@ void DoDP()
 	TimeListA.clear();
 	TimeListB.clear();
 	TimeListC.clear();
+	Tdelay = 0.0;
 	int alpha = ATimes.size() - 1;
 	int beta = BTimes.size() - 1;
 	// initialize
@@ -287,6 +288,7 @@ void DoFIFO()
 	TimeListA.clear();
 	TimeListB.clear();
 	TimeListC.clear();
+	Tdelay = 0.0;
 	int alpha = ATimes.size() - 1;
 	int beta = BTimes.size() - 1;
 	int IndexI = 1;
@@ -354,7 +356,7 @@ void DoFIFO()
 		}
 		else if (TraceRecode[c] == '1')
 		{
-			Tdelay = Tdelay + (TimeListB[IndexJ - 1] - ATimes[IndexJ]);
+			Tdelay = Tdelay + (TimeListB[IndexJ - 1] - BTimes[IndexJ]);
 			IndexJ = IndexJ + 1;
 		}
 	}
@@ -368,6 +370,7 @@ void DoConDP()
 	TimeListC.clear();
 	TimeListA1.clear();
 	TimeListB1.clear();
+	Tdelay = 0.0;
 	float W1EQUAL = WEQUAL;
 	float W1DIFF = WDIFF;
 	float W2EQUAL = WEQUAL;
@@ -675,6 +678,7 @@ void DoConFIFO()
 	TimeListC.clear();
 	TimeListA1.clear();
 	TimeListB1.clear();
+	Tdelay = 0.0;
 	float W1EQUAL = WEQUAL;
 	float W1DIFF = WDIFF;
 	float W2EQUAL = WEQUAL;
