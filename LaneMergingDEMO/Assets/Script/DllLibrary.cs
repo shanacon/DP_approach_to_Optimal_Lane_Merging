@@ -6,7 +6,7 @@ using System.Collections.Generic;
 static public class DllLibrary
 {
     [DllImport("LaneMergeDll.dll")]
-    public static extern void SetUpRandom(double lamba, int CaseLen, int CaseNum);
+    public static extern void SetUpRandom(double lamba, int CaseLen, int CaseNum, float Wequal_, float Wdiff_, float Tf_);
     [DllImport("LaneMergeDll.dll")]
     public static extern int GetTimeList(int LaneNum, int[] arr);
     [DllImport("LaneMergeDll.dll")]

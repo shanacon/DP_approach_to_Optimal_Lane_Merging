@@ -9,6 +9,9 @@ using namespace std;
 static double lamba;
 static int CaseLen;
 static int CaseNum;
+static float WEQUAL;
+static float WDIFF;
+static float Tf;
 static vector<float> ATimes;
 static vector<float> BTimes;
 static vector<float> CTimes;
@@ -42,11 +45,14 @@ const MinReturn minimum(double a, double b, double c, double d)
 		ret.index = 3;
 	return ret;
 }
-void SetUpRandom(double lamba_, int CaseLen_, int CaseNum_)
+void SetUpRandom(double lamba_, int CaseLen_, int CaseNum_, float Wequal_, float Wdiff_, float Tf_)
 {
     lamba = lamba_;
     CaseLen = CaseLen_;
     CaseNum = CaseNum_;
+	WEQUAL = Wequal_;
+	WDIFF = Wdiff_;
+	Tf = Tf_;
     poisson_distribution<int> distribution(lamba);
 	ATimes.clear();
 	BTimes.clear();
@@ -172,8 +178,6 @@ void DoDP()
 	TimeListA.clear();
 	TimeListB.clear();
 	TimeListC.clear();
-	float WEQUAL = 1;
-	float WDIFF = 3;
 	int alpha = ATimes.size() - 1;
 	int beta = BTimes.size() - 1;
 	// initialize
@@ -271,8 +275,6 @@ void DoFIFO()
 	TimeListA.clear();
 	TimeListB.clear();
 	TimeListC.clear();
-	float WEQUAL = 1.0;
-	float WDIFF = 3.0;
 	int alpha = ATimes.size() - 1;
 	int beta = BTimes.size() - 1;
 	int IndexI = 1;
@@ -354,11 +356,10 @@ void DoConDP()
 	TimeListC.clear();
 	TimeListA1.clear();
 	TimeListB1.clear();
-	float W1EQUAL = 1;
-	float W1DIFF = 3;
-	float W2EQUAL = 1;
-	float W2DIFF = 3;
-	float Tf = 2;
+	float W1EQUAL = WEQUAL;
+	float W1DIFF = WDIFF;
+	float W2EQUAL = WEQUAL;
+	float W2DIFF = WDIFF;
 	int alpha = ATimes.size() - 1;
 	int beta = BTimes.size() - 1;
 	int theta = CTimes.size() - 1;
@@ -662,11 +663,10 @@ void DoConFIFO()
 	TimeListC.clear();
 	TimeListA1.clear();
 	TimeListB1.clear();
-	float W1EQUAL = 1;
-	float W1DIFF = 3;
-	float W2EQUAL = 1;
-	float W2DIFF = 3;
-	float Tf = 2;
+	float W1EQUAL = WEQUAL;
+	float W1DIFF = WDIFF;
+	float W2EQUAL = WEQUAL;
+	float W2DIFF = WDIFF;
 	int alpha = ATimes.size() - 1;
 	int beta = BTimes.size() - 1;
 	int theta = CTimes.size() - 1;

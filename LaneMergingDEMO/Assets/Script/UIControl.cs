@@ -8,7 +8,7 @@ public class UIControl : MonoBehaviour
 {
     public float CarSpeed;
     public float SpeedRate = 1.0f;
-    public float Tf = 2.0f;
+    public float Tf;
     private int NowScene = 0; // 0 for two lane merging , 1 for con lane merging
     float timer = 0.0f;
     bool TimeStart;
@@ -23,6 +23,9 @@ public class UIControl : MonoBehaviour
     LaneControl[] laneControl;
     InputField LambdaInput;
     InputField CaseLenInput;
+    InputField WequalInput;
+    InputField WplusInput;
+    InputField TfInput;
     Toggle TwoToggle;
     Toggle ConToggle;
     Toggle SmallToggle;
@@ -42,6 +45,9 @@ public class UIControl : MonoBehaviour
         //
         LambdaInput = transform.Find("Lambda").GetComponent<InputField>();
         CaseLenInput = transform.Find("CaseLen").GetComponent<InputField>();
+        WequalInput = transform.Find("WequalIn").GetComponent<InputField>();
+        WplusInput = transform.Find("WplusIn").GetComponent<InputField>();
+        TfInput = transform.Find("TfIn").GetComponent<InputField>();
         TwoToggle = transform.Find("TwoCheck").GetComponent<Toggle>();
         ConToggle = transform.Find("ConCheck").GetComponent<Toggle>();
         SmallToggle = transform.Find("SmallCheck").GetComponent<Toggle>();
@@ -98,6 +104,9 @@ public class UIControl : MonoBehaviour
         DPT.gameObject.SetActive(false);
         FIFOL.gameObject.SetActive(false);
         FIFOT.gameObject.SetActive(false);
+        WequalInput.gameObject.SetActive(false);
+        WplusInput.gameObject.SetActive(false);
+        TfInput.gameObject.SetActive(false);
         transform.Find("RandomBtn").gameObject.SetActive(false);
         transform.Find("AllInputText").gameObject.SetActive(false);
         TimeStart = true;
@@ -151,9 +160,13 @@ public class UIControl : MonoBehaviour
         DllLibrary.ClearAll();
         double labda =  Convert.ToDouble(LambdaInput.text);
         int Caselen =  Convert.ToInt32(CaseLenInput.text);
+        float Wequal_ = Convert.ToSingle(WequalInput.text);
+        float Wdiff_ = Convert.ToSingle(WplusInput.text);
+        float Tf_ = Convert.ToSingle(TfInput.text);
+        Tf = Tf_;
         if(TwoToggle.isOn)
         {
-            DllLibrary.SetUpRandom(labda, Caselen, 2);
+            DllLibrary.SetUpRandom(labda, Caselen, 2, Wequal_, Wdiff_, Tf_);
             DllLibrary.DoDP();
             SetCalData(0);
             DPL.text = DllLibrary.GetFinalTime().ToString();
@@ -166,7 +179,7 @@ public class UIControl : MonoBehaviour
         }  
         else
         {
-            DllLibrary.SetUpRandom(labda, Caselen, 3);
+            DllLibrary.SetUpRandom(labda, Caselen, 3, Wequal_, Wdiff_, Tf_);
             DllLibrary.DoConDP();
             SetCalData(0);
             DPL.text = DllLibrary.GetFinalTime().ToString();
@@ -185,6 +198,10 @@ public class UIControl : MonoBehaviour
             ConToggle.isOn = false;
         else if (i == 1 && ConToggle.isOn)
             TwoToggle.isOn = false;
+        if(TwoToggle.isOn)
+            TfInput.interactable = false;
+        else
+            TfInput.interactable = true;
     }
     private void SetCalData(int index)
     {
