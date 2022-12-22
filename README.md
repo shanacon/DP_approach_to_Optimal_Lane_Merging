@@ -24,7 +24,7 @@ Suppose Tf is same for all cars.
 Parameter lambda of poisson distribution which use in randomly create car's arrival time.\
 The bigger the value is mean there will have higher probability to have cars arrive junction in a unit time.
 ### CaseLen
-How many unit time to sample. For example, if **CaseLen=3**, it will do 3 times poisson distribution which mean the numbers of car will arrive junction at the first, second and third unit time.
+Total cars number in each lane.
 ### TwoLane and ConsecutiveLane
 Check one of them to choose which scenario to demo.
 ### Smaller collider box for cars
@@ -60,4 +60,4 @@ This code send message to each car which tell them when to cross the junction.
 > #### UIControl.cs
 This code control the UI of Demo. Also send global time to each lane manager.
 ## DEMO program
-Download and try to use it at [here](https://drive.google.com/file/d/1ZJ7568jnZtMkXMpQBOSldFY7UBVOfAIH/view?usp=share_link)
+Download and try to use it at [here](https://drive.google.com/file/d/1mFMilqKwldE22Ve1Ax_NjaC_twEKKgmO/view?usp=share_link)
