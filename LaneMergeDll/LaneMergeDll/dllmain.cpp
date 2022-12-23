@@ -662,7 +662,7 @@ void DoConDP()
 			else if (IndexLast == '1')
 				w = W1EQUAL;
 			IndexLast = c;
-			TimeListB1.push_back(max(ATimes[IndexJ], IndexTime + w));
+			TimeListB1.push_back(max(BTimes[IndexJ], IndexTime + w));
 			IndexTime = TimeListB1.back();
 			IndexJ++;
 		}
