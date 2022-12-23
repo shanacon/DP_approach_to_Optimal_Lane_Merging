@@ -46,7 +46,7 @@ public class CreateCar : MonoBehaviour
             } 
             else
                 count = 0;
-            pos.z-=(0.1f * Index);
+            pos.z-=(0.2f * Index);
             GameObject NewCar =  Instantiate(car, pos, car.transform.rotation);
             NewCar.transform.parent = this.gameObject.transform.parent;
             if(!Con)

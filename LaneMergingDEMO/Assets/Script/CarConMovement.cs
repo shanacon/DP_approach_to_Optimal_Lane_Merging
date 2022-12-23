@@ -91,7 +91,7 @@ public class CarConMovement : MonoBehaviour
         if (hit.collider != null)
         {
             FrontDistance = hit.point.x - RayShooter.position.x;
-            transform.position = new Vector3(transform.position.x, transform.position.y, hit.transform.position.z - 0.1f);
+            transform.position = new Vector3(transform.position.x, transform.position.y, hit.transform.position.z - 0.2f);
         }   
         // check stop
         if(FrontDistance < WequalDistance)
