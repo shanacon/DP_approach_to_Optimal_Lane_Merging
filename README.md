@@ -1,5 +1,5 @@
 # DP_approach_to_Optimal_Lane_Merging
-###### This project is an implement of this paper: [A Dynamic Programming Approach to Optimal Lane Merging of Connected and Autonomous Vehicles](https://ieeexplore.ieee.org/document/9304813)
+###### This project is an implement of this paper: [A Dynamic Programming Approach to Optimal Lane Merging of Connected and Autonomous Vehicles](https://ieeexplore.ieee.org/document/9304813).
 ## Introduction
 This paper propose a dynamic programming algorithm to solve lane mering problem.\
 Their are mainly two cases had been discussed is this paper.\
@@ -60,4 +60,5 @@ This code send message to each car which tell them when to cross the junction.
 > #### UIControl.cs
 This code control the UI of Demo. Also send global time to each lane manager.
 ## DEMO program
-Download and try to use it at [here](https://drive.google.com/file/d/1ivtP7lqyYL9by3WUcUqQHsHM_sIWvpal/view?usp=share_link)
+Download and try to use it at [here](https://drive.google.com/file/d/1ivtP7lqyYL9by3WUcUqQHsHM_sIWvpal/view?usp=share_link).\
+DEMO video at [here](https://youtu.be/E6dQYsn_RY8).
