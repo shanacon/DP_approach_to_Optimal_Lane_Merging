@@ -10,7 +10,7 @@ Which are **two-lane merging problem** and **consecutive lane merging problem** 
 ![consecutive lane](https://user-images.githubusercontent.com/79785416/209139631-447f4a36-dfbe-41c0-8754-9ee6e62df062.png)
 This project implement the algorithm proposed by this paper by c++, and demo the result compare with First-In-First-Out algorithm by unity.
 ## How to use Demo
-![Demo](https://user-images.githubusercontent.com/79785416/209180628-e73e5326-af7e-44aa-a650-b80c8b9e1203.png)
+![Demo](https://user-images.githubusercontent.com/79785416/209443981-2bc84e22-272d-45a8-9a37-c44bd8a02dc5.png)
 ### W=
 When two vehicles consecutively pass the merging point and they are from same incoming lane.\
 W= is the minimun time to wait between times of these two vehicles pass the merging point.
@@ -60,4 +60,4 @@ This code send message to each car which tell them when to cross the junction.
 > #### UIControl.cs
 This code control the UI of Demo. Also send global time to each lane manager.
 ## DEMO program
-Download and try to use it at [here](https://drive.google.com/file/d/19O8hgtJn5fRXiiIq7Mneq-Q0exz9JGOW/view?usp=share_link)
+Download and try to use it at [here](https://drive.google.com/file/d/1ivtP7lqyYL9by3WUcUqQHsHM_sIWvpal/view?usp=share_link)
